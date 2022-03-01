@@ -23,7 +23,7 @@ function makeGrid() {
       const gridCell = document.createElement("div");
       gridCell.classList.add("cell");
       //assign ids to cells to assist with navigation and selection - need way for .css to target and make changes.
-      gridCell.setAttribute("grid-cell", [0][0]); //need to figure out how to assign index values like a grid.. For loop?
+      gridCell.id = `${i}-${k}`; //need to figure out how to assign index values like a grid.. For loop?
       //will need a counter that checks when we are at the end of grid,
       // when hit 21, increment y coordinate, and reset x and counter to 0 - do this with if()
 
@@ -37,10 +37,16 @@ makeGrid();
 //create a function to 'draw' our snake on the grid. remember, the grid is nested arrays.
 //need to loop over our snake, and get the indexes of each body segment, and then color those sections on our grid.
 //also need to include how our snake moves forward.
-function drawSnek() {
-  /* for(let */
+function drawSnake() {
+  for (let i = 0; i < snake.body.length; i++) {
+    const snakePart = snake.body[i];
+    let x = snakePart[0];
+    let y = snakePart[1];
+    const snakePartId = `${x}-${y}`;
+    const snek = document.getElementById(snakePartID);
+  }
 }
-
+drawSnake();
 //make sure you set up how you will display the game. How do we add the board to the div on the HTML??
 //we may want to manipulate that board as well. Give it cells and our snake from above.
 //we also want our apple to appear on the board. buttons as well for control.
