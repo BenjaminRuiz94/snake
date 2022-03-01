@@ -9,6 +9,12 @@ body {
 }
 
 .board {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 700px;
+  width: 600px;
+  background-color: rgb(191, 198, 205);
 }
 
 .snake-grid {
@@ -23,4 +29,5 @@ body {
 
 .cell {
   background-color: rgb(109, 109, 109);
+  border: solid 1px black;
 }
