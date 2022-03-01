@@ -1,0 +1,26 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.board {
+}
+
+.snake-grid {
+  background-color: beige;
+  height: 500px;
+  width: 500px;
+  display: grid;
+  grid-template-columns: repeat(20, 1fr);
+  /* 20 columns of equal size - 1fr means 1 fraction of height/width */
+  grid-template-rows: repeat(20, 1fr);
+}
+
+.cell {
+  background-color: rgb(109, 109, 109);
+}
