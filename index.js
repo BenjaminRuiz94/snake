@@ -86,6 +86,24 @@ function drawApple() {
 
 drawApple();
 
+function tic() {
+  let head = snake.body.lastIndexOf;
+  const newHead = head.map(headFunc);
+  function headFunc(num) {
+    return num + 1;
+  }
+
+  console.log(snake.body);
+  snake.body.splice(0, 1);
+  console.log(snake.body);
+  snake.body.push();
+  return snake.body;
+
+  //this inner function should alter my snake nested arrays to move it in my nextDirection
+}
+
+tic();
+console.log(snake.body);
 //what about when the snake traverses the board? we will want to make a function for that.
 //each tic() we want to remove the tail (sub array at position 0) and tack on a new head.
 function snakeMove() {
