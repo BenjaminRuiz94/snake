@@ -23,6 +23,9 @@ gameState = {
   //upScore function
 };
 
+//targeting window and adding event listener for arrow keys.
+//window.addEventListener('keydown' keyLog)
+
 //make sure you set up how you will display the game. How do we add the board to the div on the HTML??
 //we may want to manipulate that board as well. Give it cells and our snake from above. buttons as well for control.
 
@@ -85,8 +88,19 @@ drawApple();
 
 //what about when the snake traverses the board? we will want to make a function for that.
 //each tic() we want to remove the tail (sub array at position 0) and tack on a new head.
-function snakeMove() {}
+function snakeMove() {
+  //nested functions in here. what we want to happen as our snake moves across the board in order.
+}
+
+//to simply move the snake in a new direction, we would need to
+
 //set a function for What happens when your snake eats an apple?
+
 //if the snake eats an apple, increase length of the snake by one. since the snake body is nested arrays,
 //we would just not remove the tail section like we did above.
+
 //we also want to make sure the apple disapears and re-appears somewhere random on the board.
+
+/* what about changing direction of the snake? HTML DOM elements and event handlers. You will need to set
+an event handler function that logs what key was pressed on the keyboard, nested inside a function that 
+logs what key was pressed to change the direction of the snake. */
