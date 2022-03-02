@@ -8,6 +8,23 @@ let snake = {
   ],
   nextDirection: [1, 0],
 };
+//apple location at start. We would want to set this to randomly generate anywhere on the board where the snake is not.
+let apple = {
+  location: [14, 3],
+};
+
+//game state. What are the starting parameters.
+//We will need to know what the status of the game is. Current score, and a function to increase the score.
+//We will also need a function to change the game status to end if the snake hits the wall or himself.
+//Snake hitting wall or himself would be individual functions that need to be defined below after moveforward
+gameState = {
+  currentScore: 0,
+  gameStatus: "Start",
+  //upScore function
+};
+
+//make sure you set up how you will display the game. How do we add the board to the div on the HTML??
+//we may want to manipulate that board as well. Give it cells and our snake from above. buttons as well for control.
 
 const board = document.querySelector(".board");
 //selecting our board class from html and giving it a variable for JS to play with.
@@ -16,6 +33,12 @@ const grid = document.createElement("table");
 grid.classList.add("snake-grid"); //we add the class so we can edit in index.css
 board.appendChild(grid); //pins the element to the board. This new elem
 
+//need a display section for the score and controls!
+const displayArea = document.createElement("div");
+displayArea.classList.add("scoreBoard");
+board.appendChild(displayArea);
+displayArea.innerText = gameState.currentScore; //we've got our score, but no 'control instructions'
+
 function makeGrid() {
   //assign variable to x and y cooridnates as well as counter.
   for (let i = 0; i < 20; i++) {
@@ -23,9 +46,8 @@ function makeGrid() {
       const gridCell = document.createElement("div");
       gridCell.classList.add("cell");
       //assign ids to cells to assist with navigation and selection - need way for .css to target and make changes.
-      gridCell.id = `${i}-${k}`; //need to figure out how to assign index values like a grid.. For loop?
-      //will need a counter that checks when we are at the end of grid,
-      // when hit 21, increment y coordinate, and reset x and counter to 0 - do this with if()
+      gridCell.id = `${i}-${k}`; //need to assign index values like a grid while in for loop. Template literal. Literal template.
+      //Template literal ^^^  --- this means the literal values of i and k. now the gridCell id = i-k. first box would be 0-0. second 0-1. ect.
 
       grid.appendChild(gridCell);
     }
@@ -43,17 +65,27 @@ function drawSnake() {
     let x = snakePart[0];
     let y = snakePart[1];
     const snakePartId = `${x}-${y}`;
-    const snek = document.getElementById(snakePartID);
+    const snek = document.getElementById(snakePartId);
+    snek.classList.add("snek");
   }
 }
 drawSnake();
-//make sure you set up how you will display the game. How do we add the board to the div on the HTML??
-//we may want to manipulate that board as well. Give it cells and our snake from above.
-//we also want our apple to appear on the board. buttons as well for control.
+
+//we also want our apple to appear on the board.
+function drawApple() {
+  const appleSpot = apple.location;
+  let x = appleSpot[0];
+  let y = appleSpot[1];
+  const appleSpotId = `${x}-${y}`;
+  const point = document.getElementById(appleSpotId);
+  point.classList.add("apple");
+}
+
+drawApple();
 
 //what about when the snake traverses the board? we will want to make a function for that.
 //each tic() we want to remove the tail (sub array at position 0) and tack on a new head.
-
+function snakeMove() {}
 //set a function for What happens when your snake eats an apple?
 //if the snake eats an apple, increase length of the snake by one. since the snake body is nested arrays,
 //we would just not remove the tail section like we did above.
