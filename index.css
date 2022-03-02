@@ -33,6 +33,7 @@ body {
 
 .cell {
   background-color: rgb(109, 109, 109);
+  border: 0.5px solid black;
 }
 
 .snek {

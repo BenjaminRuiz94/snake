@@ -20,7 +20,6 @@ let apple = {
 gameState = {
   currentScore: 0,
   gameStatus: "Start",
-  //upScore function
 };
 
 //targeting window and adding event listener for arrow keys.
@@ -59,10 +58,14 @@ function makeGrid() {
 
 makeGrid();
 
+let snekCells = document.getElementsByClassName("snek");
+//write a function that loops through cells ^^ and removes the class "snek"
+
 //create a function to 'draw' our snake on the grid. remember, the grid is nested arrays.
 //need to loop over our snake, and get the indexes of each body segment, and then color those sections on our grid.
 //also need to include how our snake moves forward.
 function drawSnake() {
+  //nested for loops - go through entire board and erase old snake. put defined function for snekcells here
   for (let i = 0; i < snake.body.length; i++) {
     const snakePart = snake.body[i];
     let x = snakePart[0];
@@ -87,23 +90,21 @@ function drawApple() {
 drawApple();
 
 function tic() {
-  let head = snake.body.lastIndexOf;
-  const newHead = head.map(headFunc);
-  function headFunc(num) {
-    return num + 1;
-  }
+  let head = snake.body[snake.body.length - 1];
+  let newHead = [
+    head[0] + snake.nextDirection[0],
+    head[1] + snake.nextDirection[1],
+  ];
+  snake.body.push(newHead);
+  snake.body.shift();
 
+  console.log({ newHead });
   console.log(snake.body);
-  snake.body.splice(0, 1);
-  console.log(snake.body);
-  snake.body.push();
-  return snake.body;
-
   //this inner function should alter my snake nested arrays to move it in my nextDirection
 }
 
 tic();
-console.log(snake.body);
+
 //what about when the snake traverses the board? we will want to make a function for that.
 //each tic() we want to remove the tail (sub array at position 0) and tack on a new head.
 function snakeMove() {
