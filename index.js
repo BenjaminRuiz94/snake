@@ -66,6 +66,17 @@ let snekCells = document.getElementsByClassName("snek");
 //also need to include how our snake moves forward.
 function drawSnake() {
   //nested for loops - go through entire board and erase old snake. put defined function for snekcells here
+  let snekCells = document.getElementsByClassName("snek");
+  for (let i = 0; i < snekCells.length; i++) {
+    let x = snekCells[i].id[0]; // I need to target the snekCells 'ID' and split
+    //at the -
+    let y = snekCells[i].id[1];
+    //deconstruction - x and y are now variables
+    // const snakeCell = document.getElementById(`${x}-${y}`);
+    // snakeCell.classList.remove("snek");
+    console.log(snekCells[i]);
+  }
+
   for (let i = 0; i < snake.body.length; i++) {
     const snakePart = snake.body[i];
     let x = snakePart[0];
