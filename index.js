@@ -1,3 +1,12 @@
+//game state. What are the starting parameters.
+//We will need to know what the status of the game is. Current score, and a function to increase the score.
+//We will also need a function to change the game status to end if the snake hits the wall or himself.
+//Snake hitting wall or himself would be individual functions that need to be defined below after moveforward
+gameState = {
+  currentScore: 0,
+  gameStatus: "Start",
+};
+
 //our snake body. snake at the start, and what his next direction will be. Your game state at start.
 let snake = {
   body: [
@@ -13,50 +22,40 @@ let apple = {
   location: [14, 3],
 };
 
-//game state. What are the starting parameters.
-//We will need to know what the status of the game is. Current score, and a function to increase the score.
-//We will also need a function to change the game status to end if the snake hits the wall or himself.
-//Snake hitting wall or himself would be individual functions that need to be defined below after moveforward
-gameState = {
-  currentScore: 0,
-  gameStatus: "Start",
-};
-
 //targeting window and adding event listener for arrow keys.
 //window.addEventListener('keydown' keyLog)
 
 //make sure you set up how you will display the game. How do we add the board to the div on the HTML??
-//we may want to manipulate that board as well. Give it cells and our snake from above. buttons as well for control.
+//we may want to manipulate that board as well. Give it cells and our snake.
 
 const board = document.querySelector(".board");
-//selecting our board class from html and giving it a variable for JS to play with.
+//selecting our board class from html and giving it a variable.
 const grid = document.createElement("table");
-//here we gave variable name grid to new element we created, and then we can add a .class and pin to board.
-grid.classList.add("snake-grid"); //we add the class so we can edit in index.css
-board.appendChild(grid); //pins the element to the board. This new elem
+//new element grid created, and then add .class and pin to board.
+grid.classList.add("snake-grid");
+board.appendChild(grid);
 
-//need a display section for the score and controls!
+//score display area
 const displayArea = document.createElement("div");
 displayArea.classList.add("scoreBoard");
 board.appendChild(displayArea);
-displayArea.innerText = gameState.currentScore; //we've got our score, but no 'control instructions'
+displayArea.innerText = gameState.currentScore; //we've got our score, but no 'game instructions'
 
-function makeGrid() {
-  //assign variable to x and y cooridnates as well as counter.
+function makeCells() {
+  //function to create cells for grid.
   for (let i = 0; i < 20; i++) {
     for (let k = 0; k < 20; k++) {
       const gridCell = document.createElement("div");
       gridCell.classList.add("cell");
       //assign ids to cells to assist with navigation and selection - need way for .css to target and make changes.
-      gridCell.id = `${i}-${k}`; //need to assign index values like a grid while in for loop. Template literal. Literal template.
-      //Template literal ^^^  --- this means the literal values of i and k. now the gridCell id = i-k. first box would be 0-0. second 0-1. ect.
-
+      gridCell.id = `${i}-${k}`; //need to assign index values like a grid while in for loop.
+      //assign variable to x and y cooridnates as well as counter. i and k are now variables for each cell.
       grid.appendChild(gridCell);
     }
   }
 }
-
-makeGrid();
+//function to make board with cells defined. Call function
+makeCells();
 
 let snekCells = document.getElementsByClassName("snek");
 //write a function that loops through cells ^^ and removes the class "snek"
@@ -66,24 +65,27 @@ let snekCells = document.getElementsByClassName("snek");
 //also need to include how our snake moves forward.
 function drawSnake() {
   //nested for loops - go through entire board and erase old snake. put defined function for snekcells here
-  let snekCells = document.getElementsByClassName("snek");
-  for (let i = 0; i < snekCells.length; i++) {
-    let x = snekCells[i].id[0]; // I need to target the snekCells 'ID' and split
-    //at the -
-    let y = snekCells[i].id[1];
-    //deconstruction - x and y are now variables
-    // const snakeCell = document.getElementById(`${x}-${y}`);
-    // snakeCell.classList.remove("snek");
-    console.log(snekCells[i]);
-  }
+  if (grid.classList.contains(snekCells)) {
+    for (let i = 0; i < snekCells.length; i++) {
+      // I need to target the snekCells 'ID' and split
+      //at the -
+      const snekPart = snekCells[i];
+      let x = snekPart[0];
+      let y = snekPart[1];
+      const snekPartId = `${x}-${y}`;
+      const tailCell = document.getElementsByClassName("cell", "snek");
+      console.log(tailCell);
+    }
+  } else {
+    for (let i = 0; i < snake.body.length; i++) {
+      const snakePart = snake.body[i];
 
-  for (let i = 0; i < snake.body.length; i++) {
-    const snakePart = snake.body[i];
-    let x = snakePart[0];
-    let y = snakePart[1];
-    const snakePartId = `${x}-${y}`;
-    const snek = document.getElementById(snakePartId);
-    snek.classList.add("snek");
+      let x = snakePart[0];
+      let y = snakePart[1];
+      const snakePartId = `${x}-${y}`;
+      const snek = document.getElementById(snakePartId);
+      snek.classList.add("snek");
+    }
   }
 }
 drawSnake();
@@ -102,15 +104,13 @@ drawApple();
 
 function tic() {
   let head = snake.body[snake.body.length - 1];
+  let tail = snake.body.shift();
   let newHead = [
     head[0] + snake.nextDirection[0],
     head[1] + snake.nextDirection[1],
   ];
   snake.body.push(newHead);
-  snake.body.shift();
 
-  console.log({ newHead });
-  console.log(snake.body);
   //this inner function should alter my snake nested arrays to move it in my nextDirection
 }
 
